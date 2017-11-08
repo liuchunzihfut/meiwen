@@ -20,8 +20,7 @@ class Reader(models.Model):
     vip_level为0时，代表读者不是vip
     reader_id就是User表的id
     """
-    reader_id = Char(max_length=256, db_index=True)
-    write_id = Char(max_length=256, default='', null=True, blank=True)
+    reader_id = Integer(db_index=True)
     nickname = Char(max_length=64, null=True, blank=True)
     name = Char(max_length=64, null=True, blank=True)
     gender = Char(max_length=64, null=True, blank=True)
@@ -44,7 +43,7 @@ class ReaderAdditional(models.Model):
     读者关注了哪些作者，读者属于哪个粉丝团，读者关注了哪些小组，
     以及后续可能的信息
     """
-    reader_id = Char(max_length=256, db_index=True)
+    reader_id = Integer(db_index=True)
     attention_book = Char(max_length=1024, null=True, blank=True)
     attention_writer = Char(max_length=1024, null=True, blank=True)
     attention_group = Char(max_length=1024, null=True, blank=True)

@@ -4,12 +4,15 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
+from reader.models import Reader, ReaderAdditional
 
 import time
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the login index.")
+    return HttpResponse("Hello, world. please login before")
 
 def userLogin(request):  
     curtime=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime());  
@@ -32,10 +35,22 @@ def signUp(request):
     if username and password and email:
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
+        user_new = User.objects.get(username=username)
+        reader = Reader(
+            reader_id = user_new.id,
+            nickname = user_new.username,
+            name =user_new.username,
+        )
+        reader_add = ReaderAdditional(
+            reader_id = user_new.id,
+        )
+        reader.save()
+        reader_add.save()
         return HttpResponse("sign up success")
     else:
         return HttpResponse("please write password or email or name")
 
+@login_required(login_url='/login/index/')
 def changePassword(request):
     username = request.POST.get('name', '')
     password = request.POST.get('password', '')
@@ -48,6 +63,11 @@ def changePassword(request):
         return HttpResponse("change password success")
     return HttpResponse("user not active")
 
+@login_required(login_url='/login/index/')
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect("logout success")
+    return HttpResponse("logout success")
+
+@login_required(login_url='/login/index/')
+def test(request):
+    return HttpResponse('test success')
