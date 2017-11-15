@@ -34,7 +34,7 @@ class Reader(models.Model):
     is_delete = Bool(default=False)
 
     def __str__(self):
-        return self.reader_id
+        return str(self.reader_id)
 
 
 class ReaderAdditional(models.Model):
@@ -53,4 +53,4 @@ class ReaderAdditional(models.Model):
     is_delete = Bool(default=False)
 
     def __str__(self):
-        return self.reader_id
+        return str(self.reader_id)

@@ -63,11 +63,11 @@ def changePassword(request):
         return HttpResponse("change password success")
     return HttpResponse("user not active")
 
-@login_required(login_url='/login/index/')
+@login_required(login_url='/login/login/')
 def logout(request):
     auth.logout(request)
     return HttpResponse("logout success")
 
-@login_required(login_url='/login/index/')
+@login_required(login_url='/login/login/')
 def test(request):
     return HttpResponse('test success')
