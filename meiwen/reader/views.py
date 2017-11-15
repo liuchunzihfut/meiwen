@@ -5,6 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 
 from reader.models import Reader, ReaderAdditional
+import datetime
 
 
 def index(request):
@@ -16,11 +17,14 @@ def fill_in_personal_information(request):
     name = request.POST.get('name', '')
     gender = request.POST.get('gender', '')
     birthday = request.POST.get('birthday', '')
+    if not birthday:
+        birthday = datetime.date.today()
     user_id = User.objects.get(username=user.username).id
-    Reader.objects.filter(id=user_id).update(
+    reader = Reader.objects.filter(reader_id=user_id).all()
+    reader.update(
         nickname = nickname,
         name = name,
         gender = gender,
         birthday = birthday
     )
-    return JsonResponse({'status':1, 'message':'success'})
+    return JsonResponse({'status':200, 'message':'success'})

@@ -41,5 +41,5 @@ class Content(models.Model):
     is_delete = Bool(default=False)
 
     def __str__(self):
-        return self.book_id
+        return str(self.book_id)
 

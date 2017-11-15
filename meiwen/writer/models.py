@@ -31,7 +31,7 @@ class Writer(models.Model):
     is_delete = Bool(default=False)
 
     def __str__(self):
-        return self.write_id
+        return str(self.write_id)
 
 
 class Group(models.Model):
@@ -52,4 +52,4 @@ class Group(models.Model):
     is_delete = Bool(default=False)
 
     def __str__(self):
-        return self.group_id
+        return self.group_name
