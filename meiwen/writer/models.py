@@ -53,3 +53,24 @@ class Group(models.Model):
 
     def __str__(self):
         return self.group_name
+
+
+class ApplyGroup(models.Model):
+    """
+    存储了所有加入组群和邀请加入组群的申请
+    apply_type只有两种类型,user_apply or group_apply
+    apply_status have three status, applying or approved or rejected
+    """
+    user_id = Integer(db_index=True)
+    group_id = Integer()
+    apply_type = Char(max_length=256, null=True, blank=True)
+    apply_status = Char(max_length=256, null=True, blank=True)
+    apply_message = Char(max_length=256, null=True, blank=True)
+    create_time = Dtime(null=True, blank=True)
+    finish_time = Dtime(null=True, blank=True)
+    is_active = Bool(default=False)
+    is_delete = Bool(default=False)
+
+    def __str__(self):
+        return str(self.user_id)
+

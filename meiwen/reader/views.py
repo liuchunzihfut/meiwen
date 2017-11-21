@@ -20,7 +20,7 @@ def fill_in_personal_information(request):
     if not birthday:
         birthday = datetime.date.today()
     user_id = User.objects.get(username=user.username).id
-    reader = Reader.objects.filter(reader_id=user_id).all()
+    reader = Reader.objects.filter(reader_id=user_id, is_delete=False).all()
     reader.update(
         nickname = nickname,
         name = name,
