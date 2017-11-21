@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
+from django.db.models import Q
 from writer.models import Writer, Group, ApplyGroup
 from reader.models import Reader, ReaderAdditional
 
@@ -98,7 +99,7 @@ def otherApplyShow(request):
     apply_list_unreply = ApplyGroup.objects.filter(
         group_id__in=group_admin_list, apply_status='applying', is_delete=False)
     apply_list_reply = ApplyGroup.objects.filter(
-        group_id__in=group_admin_list, apply_status!='applying', is_delete=False)
+        group_id__in=group_admin_list, apply_status__in=['approved', 'rejected'], is_delete=False)
     return JsonResponse({'apply_unreply': apply_list_unreply, 'apply_reply': apply_list_reply})
 
 
